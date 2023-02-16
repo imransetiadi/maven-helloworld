@@ -10,18 +10,18 @@ pipeline {
         DOCKER_HUB_REPO = "imransetiadi22/hello-world-maven"
     }
     stages {
-        stage ('Build') {
+        stage ('Build Java using Maven') {
             steps {
                 sh 'mvn clean package'
             }
         }
-        stage('Docker Build') {
+        stage('Build Docker Images') {
             steps {
                 echo 'Building..'
                 sh 'docker image build -t $DOCKER_HUB_REPO:${TAG} .'
             }
         }
-        stage('Push to Docker Hub') {
+        stage('Push Images to Docker Hub') {
             steps {
                 echo 'Pushing image..'
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
