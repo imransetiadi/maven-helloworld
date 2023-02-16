@@ -8,7 +8,7 @@ pipeline {
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
 	DOCKERHUB_CREDENTIALS=credentials('dockerhub-credentials')
-        DOCKER_HUB_REPO = "imransetiadi22/hello-world-maven
+        DOCKER_HUB_REPO = "imransetiadi22/hello-world-maven"
     }
     stages {
         stage ('Build') {
