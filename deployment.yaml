@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: maven-hello-world-deployment # name of the deployment
+  name: hello-world-maven-deployment # name of the deployment
 
 spec:
   template: # pod defintion
