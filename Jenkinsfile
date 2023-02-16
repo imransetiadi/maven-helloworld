@@ -8,7 +8,7 @@ pipeline {
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
 	DOCKERHUB_CREDENTIALS=credentials('dockerhub-credentials')
-	    
+        DOCKER_HUB_REPO = "imransetiadi22/hello-world-maven
     }
     stages {
         stage ('Build') {
@@ -19,21 +19,21 @@ pipeline {
         stage('Docker Build') {
             steps {
                 echo 'Building..'
-                sh 'docker image build -t imransetiadi22/hello-world-maven:1.0 .'
+                sh 'docker image build -t $DOCKER_HUB_REPO:${TAG} .'
             }
         }
         stage('Push to Docker Hub') {
             steps {
                 echo 'Pushing image..'
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push imransetiadi22/hello-world-maven:1.0'
+                sh 'docker push $DOCKER_HUB_REPO:${TAG}'
             }
         }
-        stage('Deploy'){
+        stage('Deploy to Cluster Kubernetes') {
             steps {
-                sh "docker stop hello-world | true"
-                sh "docker rm hello-world | true"
-                sh "docker run --name hello-world -d -p 9004:8080 vigneshsweekaran/hello-world:${TAG}"
+                echo 'Deploying....'
+                sh 'sudo kubectl apply -f deployment.yaml'
+                sh 'sudo kubectl apply -f service.yaml'
             }
         }
     }
