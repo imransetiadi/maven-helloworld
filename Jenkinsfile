@@ -5,8 +5,7 @@ pipeline {
         maven 'mvn-3.6.3' 
     }
     environment {
-        DATE = new Date().format('yy.M')
-        TAG = "${DATE}.${BUILD_NUMBER}"
+        TAG = latest
 	DOCKERHUB_CREDENTIALS=credentials('dockerhub-credentials')
         DOCKER_HUB_REPO = "imransetiadi22/hello-world-maven"
     }
