@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         TAG = "latest"
-	DOCKERHUB_CREDENTIALS=credentials('dockerhub-credentials')
+	DOCKERHUB_CREDENTIALS=credentials('dockerhub_credentials')
         DOCKER_HUB_REPO = "imransetiadi22/hello-world-maven"
     }
     stages {
